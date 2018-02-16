@@ -5,11 +5,18 @@
 
 ----------
 
-#### Please read this document before using this solution.
+#### PLEASE READ THIS DOCUMENT BEFORE DOWNLOADING AURA
 ##### An extended version of this document can be found as the "Starting Guide.pdf".
 
 ----------
 ## About Aura
+
+**TL;DR;**
+What Aura is :
+ - a local simulation of the light scattering into the surrounding medium
+What Aura is not:
+ - an atmospheric scattering simulation
+ - a cloud simulator
 
 Aura is an open source volumetric lighting solution for Unity. 
 The development is hosted on GitHub and the latest package is published on the Asset Store.
@@ -57,6 +64,10 @@ Aura **strictly** requires full support of the following elements to work :
 - Texture2DArrays
 - ComputeShaders
 
+Aura release was targeted for Unity 2017.2 :
+ - older version will not be supported (although I can help making it work ;-) )
+ - newer version will be supported with updates if necessary, but, Aura still remains a side project so there will never be any promised ETA 
+
 Please verify that the support of these elements is not limited especially on lower platforms.
 
 Historically, Texture2DArrays were introduced in Unity 5.4 which makes it the lowest version compatible with Aura.
@@ -65,7 +76,7 @@ However, multi-threaded ComputeShaders compilation was introduced in Unity 2017.
 
 **The main ComputeShader has many variants (for performance purposes). This will lead its compilation, and therefore the import of the package in Unity, to take a long time (usually from 20 minutes to an hour!). 
 PLEASE DO NOT KILL UNITY AND WAIT UNTIL THE IMPORT IS DONE.
-If you did kill Unity, or experienced any trouble, during importation, re-import the file Aura/Shaders/ComputeShaders/ComputeDataComputeShader.compute**
+If you did kill Unity, or experienced any trouble, during importation, you'll get a "NullReference Exception", re-import the file Aura/Shaders/ComputeShaders/ComputeDataComputeShader.compute**
 
 Also, please also understand that you might need a Technical Artist or a Graphics Programmer if you want to make Aura fit some special requirements. 
 
@@ -132,7 +143,8 @@ The technical requirement for Aura are specified in the Requirements section.
 The minimum version possible for Aura is Unity 5.4 but the release is targeted for 2017.2.
 
 ### Does Aura support VR?
-I couldn’t tell. I didn’t do any specific work to that end as I don’t have the hardware to test..
+I did not test it myself but apparently Aura works out-of-hands with multi-view VR.
+Single-pass doesn't work for now but is under investigation.
 
 ### Why did it take so long?
 Aura was a personal project, a challenge for myself. It was developed during my free time. 
@@ -143,7 +155,7 @@ There are many ways you can help me facilitating the development of Aura :
  - You can spread the words about Aura.
  - You can branch the repo, improve the code, develop new features, fix bugs, ... 
 I’ll merge with the Master if relevant.
- - You can share your work made with Aura (on my Twitter) or tips using Aura.
+ - You can share your work made with Aura or tips using Aura.
  - You can make a demo scene and send it to me. (Make sure to own the content of it so I can publish it in the package)
  - You can make a donation, like previously said.
  - Anything that can help making Aura a great project!
