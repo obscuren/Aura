@@ -12,8 +12,10 @@
 ## About Aura
 
 **TL;DR;**
+
 What Aura is :
  - a local simulation of the light scattering into the surrounding medium
+ 
 What Aura is not:
  - an atmospheric scattering simulation
  - a cloud simulator
