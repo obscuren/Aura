@@ -32,12 +32,16 @@ Shader "Hidden/Aura/StorePointLightShadowMap"
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			#pragma target 3.0
+			#pragma target 5.0
 			#pragma shader_feature SHADOWS_CUBE
 			#pragma shader_feature POINT
 
 			#ifdef SHADOWS_DEPTH
-			#define SHADOWS_NATIVE
+				#define SHADOWS_NATIVE
+			#endif
+
+			#if UNITY_VERSION >= 201730
+				#define SHADOWS_CUBE_IN_DEPTH_TEX
 			#endif
 		
 			#include "UnityCG.cginc"
@@ -77,8 +81,15 @@ Shader "Hidden/Aura/StorePointLightShadowMap"
 	#if defined(POINT) && defined(SHADOWS_CUBE)
 				float2 uv = i.uv.xy / i.uv.w;
 				float3 ray = GetNormalizedVectorFromNormalizedYawPitch(uv);
-				float depth = SampleCubeDistance(ray);
-				return float4(depth, _LightPositionRange.w, 0, 0);
+				
+				#if UNITY_VERSION >= 201730
+					float depth = _ShadowMapTexture.SampleLevel(_PointClamp, ray, 0).x;
+					return float4(depth, _LightProjectionParams.z, _LightProjectionParams.w, 0);
+				#else
+					float depth = SampleCubeDistance(ray);
+					return float4(depth, _LightPositionRange.w, 0, 0);
+				#endif
+
 	#else
 				return float4(1, 0.5, 1, 1);
 	#endif

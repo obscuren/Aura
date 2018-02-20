@@ -34,6 +34,9 @@ namespace AuraAPI
         public float lightRange;
         public Vector2 distanceFalloffParameters;
         public MatrixFloats worldToShadowMatrix;
+        #if UNITY_2017_3_OR_NEWER
+        public Vector2 lightProjectionParameters;
+        #endif
         public int shadowMapIndex;
         public float shadowStrength;
         public int cookieMapIndex;
@@ -54,6 +57,9 @@ namespace AuraAPI
                 byteSize += sizeof(float); //lightRange
                 byteSize += sizeof(float) * 2; //distanceFalloffParameters
                 byteSize += MatrixFloats.Size; //worldToLightMatrix
+                #if UNITY_2017_3_OR_NEWER
+                byteSize += sizeof(float) * 2; //lightProjectionParameters
+                #endif
                 byteSize += sizeof(int); //shadowMapIndex
                 byteSize += sizeof(float); //shadowStrength
                 byteSize += sizeof(int); //cookieMapIndex

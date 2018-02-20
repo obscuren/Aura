@@ -21,15 +21,32 @@
 
 uint pointLightCount;
 StructuredBuffer<PointLightParameters> pointLightDataBuffer;
+#if UNITY_VERSION >= 201730
+Texture2DArray<half3> pointShadowMapsArray;
+#else
 Texture2DArray<half2> pointShadowMapsArray;
+#endif
 Texture2DArray<half> pointCookieMapsArray;
 
 half SamplePointShadowMap(PointLightParameters lightParameters, half3 samplingDirection, half2 polarCoordinates)
 {
+	#if UNITY_VERSION >= 201730
+	half3 shadowMapValue = pointShadowMapsArray.SampleLevel(_LinearClamp, half3(polarCoordinates, lightParameters.shadowMapIndex), 0).xyz;
+	half4 lightProjectionParams = half4( lightParameters.lightProjectionParameters, shadowMapValue.yz); // From UnityShaderVariables.cginc:114        
+	float3 absVec = abs(samplingDirection);
+	// From UnityShadowLibrary.cginc:119
+    float dominantAxis = max(max(absVec.x, absVec.y), absVec.z);
+		dominantAxis = max(0.00001, dominantAxis - lightProjectionParams.z);
+		dominantAxis *= lightProjectionParams.w;
+    half biasedReferenceDistance = -lightProjectionParams.x + lightProjectionParams.y/dominantAxis;
+		biasedReferenceDistance = 1.0f - biasedReferenceDistance;
+	return step(shadowMapValue.x, biasedReferenceDistance);
+	#else
 	half2 shadowMapValue = pointShadowMapsArray.SampleLevel(_LinearClamp, half3(polarCoordinates, lightParameters.shadowMapIndex), 0).xy;
     half biasedReferenceDistance = length(samplingDirection) * shadowMapValue.y;
         biasedReferenceDistance *= 0.97f; // bias
 	return step(biasedReferenceDistance, shadowMapValue.x);
+	#endif
 }
 
 void ComputePointLightInjection(PointLightParameters lightParameters, half3 worldPosition, half3 viewVector, inout half4 accumulationColor, half anisotropy)
@@ -77,7 +94,7 @@ void ComputePointLightInjection(PointLightParameters lightParameters, half3 worl
 			attenuation *= cookieMapValue;
 		}
 		#endif
-	
+
 		accumulationColor.xyz += lightParameters.color * attenuation;
 	}
 }

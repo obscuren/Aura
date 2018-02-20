@@ -168,6 +168,9 @@ struct PointLightParameters
     half lightRange;
     half2 distanceFalloffParameters;
     MatrixFloats worldToShadowMatrix;
+	#if UNITY_VERSION >= 201730
+    half2 lightProjectionParameters;
+	#endif
     int shadowMapIndex;
     half shadowStrength;
 	int cookieMapIndex;

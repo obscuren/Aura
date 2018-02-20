@@ -604,6 +604,9 @@ namespace AuraAPI
 
                             Matrix4x4 worldToShadow = Matrix4x4.TRS(_lightComponent.transform.position, _lightComponent.transform.rotation, Vector3.one * _lightComponent.range).inverse;
                             _pointLightParameters.worldToShadowMatrix = MatrixFloats.ToMatrixFloats(worldToShadow);
+                            #if UNITY_2017_3_OR_NEWER
+                            _pointLightParameters.lightProjectionParameters = new Vector2(_lightComponent.range / (_lightComponent.shadowNearPlane - _lightComponent.range), (_lightComponent.shadowNearPlane * _lightComponent.range) / (_lightComponent.shadowNearPlane - _lightComponent.range)); // From UnityShaderVariables.cginc:114
+                            #endif
 
                             _pointLightParameters.shadowMapIndex = _shadowMapIndex;
                             _pointLightParameters.shadowStrength = 1.0f - _lightComponent.shadowStrength;

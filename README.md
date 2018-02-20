@@ -118,6 +118,18 @@ Please refer to the license.txt file located in the Aura/License folder for the 
  - Please consider crediting Aura (or any derived form) in your projects, with the provided logo if relevant
 
 ----------
+## Changelog
+
+### 1.0.1
+
+Fixed Point Lights’ shadows on Unity versions > 2017.2
+
+### 1.0
+
+Initial release
+
+
+----------
 ## FAQ
 
 ### Why releasing Aura for free?
