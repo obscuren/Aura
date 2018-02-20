@@ -12,8 +12,10 @@
 ## About Aura
 
 **TL;DR;**
+
 What Aura is :
  - a local simulation of the light scattering into the surrounding medium
+ 
 What Aura is not:
  - an atmospheric scattering simulation
  - a cloud simulator
@@ -69,6 +71,9 @@ Aura release was targeted for Unity 2017.2 :
  - newer version will be supported with updates if necessary, but, Aura still remains a side project so there will never be any promised ETA 
 
 Please verify that the support of these elements is not limited especially on lower platforms.
+	
+Aura was developed and tested on Windows and DirectX11.
+Although there should be not definitive or critical reason that it wouldn't work, no other platform/graphic API is currently garanteed.
 
 Historically, Texture2DArrays were introduced in Unity 5.4 which makes it the lowest version compatible with Aura.
 
