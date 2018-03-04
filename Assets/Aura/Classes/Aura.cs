@@ -367,7 +367,7 @@ namespace AuraAPI
         {
 #if UNITY_2017_2_OR_NEWER
             bool isCompatible =
-                SystemInfo.graphicsShaderLevel >= 50 &&                                                     // For compute shader support
+                SystemInfo.graphicsShaderLevel >= 45 &&                                                     // For compute shader support
                 SystemInfo.supports2DArrayTextures &&                                                       // Uses Texture2DArrays for packing textures
                 SystemInfo.supports3DTextures &&                                                            // For volumetric texture masks and point shadows
                 SystemInfo.supports3DRenderTextures &&                                                      // For point shadows
