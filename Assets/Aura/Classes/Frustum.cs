@@ -327,6 +327,11 @@ namespace AuraAPI
         /// </summary>
         public void Dispose()
         {
+            // Make sure that _buffers is initialised prior to releasing it. There's a
+            // possibility that Dispose is called before CreateBuffers resulting in an
+            // unfortunate exception.
+            if(!_buffers) return;
+
             _buffers.ReleaseBuffers();
         }
 
